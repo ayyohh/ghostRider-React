@@ -24,7 +24,7 @@ render() {
           <Label for="exampleCheckbox">Trim Packages</Label>
           <div>
           	<CustomInput type="checkbox" id="exampleCustomInline" label="S" inline />
-            <CustomInput type="checkbox" id="exampleCustomInline" label="XT" inline />
+            <CustomInput type="checkbox" id="exampleCustomInline1" label="XT" inline />
             <CustomInput type="checkbox" id="exampleCustomInline2" label="LT" inline />
           </div>
         </FormGroup>

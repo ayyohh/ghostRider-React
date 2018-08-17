@@ -19,8 +19,9 @@ export default class Example extends React.Component {
             <Input type="textarea" name="text" id="exampleText" />
           
             <FormText color="muted">
-              This is some placeholder block-level help text for the above input.
-              It's a bit lighter and easily wraps to a new line.
+              Please include a descriptive comment to help other users 
+              make a decision on whether or not to make this vehicle one 
+              of their own selections.
             </FormText>
           </Col>
         </FormGroup>
@@ -42,7 +43,7 @@ export default class Example extends React.Component {
             <FormGroup check disabled>
               <Label check>
                 <Input type="radio" name="radio2" disabled />{' '}
-                Option three is disabled
+                Undecided
               </Label>
             </FormGroup>
          
