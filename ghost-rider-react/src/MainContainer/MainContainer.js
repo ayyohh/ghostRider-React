@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Aux from '../hoc/Aux';
+import TitleBar from '../TitleBar'
 import Nav from '../Nav'
 import CarsContainer from '../CarsContainer/CarsContainer';
 import InfoContainer from '../InfoContainer/InfoContainer';
@@ -9,7 +10,9 @@ class MainContainer extends Component {
     render() {
         return (
           <Aux>
+          	
             <Nav />
+            <TitleBar />
             <Container>
             <Row>
             <Col>
