@@ -15,6 +15,8 @@ class CarsContainer extends Component {
       }
     }
   }
+
+
   componentDidMount() {
     this.getCars().then((cars) => {
       this.setState({ cars: cars})
@@ -23,6 +25,7 @@ class CarsContainer extends Component {
     })
   }
 
+
   getCars = async () => {
     const cars = await fetch('http://127.0.0.1:8000/api/cars/');
     const carsJson = await cars.json();
@@ -30,6 +33,8 @@ class CarsContainer extends Component {
     console.log(cars, 'this is cars');
     return carsJson
   }
+
+
   addCar = async (car, e) => {
     e.preventDefault();
     try {
@@ -46,17 +51,28 @@ class CarsContainer extends Component {
         console.log(err)
     }
   }
+
+
   deleteCar = async (id, e) => {
     e.preventDefault();
     console.log('deleteCar function is being called, this is the id: ', id);
     try {
-      fetch('http://127.0.0.1:8000/api/cars/' + id, {
+      const deleteCar = await fetch('http://127.0.0.1:8000/api/cars/' + id, {
         method: 'DELETE'
       });
+      console.log(deleteCar, 'this is delete car');
+
+      if (deleteCar.status === 204) {
+                this.setState({ cars: this.state.cars.filter((car, i) => car.id !== id) });
+            } else {
+                console.log('you fucked');
+            }
     } catch(err) {
         console.log(err);
     }
   }
+
+
   showModal = (id, e) => {
   // i comes before e, when called with bind
     const carToEdit = this.state.cars.find((car) => car.id === id)
@@ -68,6 +84,8 @@ class CarsContainer extends Component {
       carToEdit: carToEdit
     });
   }
+
+
   closeAndEdit = async (e) => {
     console.log('close and edit');
     e.preventDefault();
@@ -92,11 +110,14 @@ class CarsContainer extends Component {
       console.log(err);
     }
   }
+
+
   handleFormChange = (e) => {
     this.setState({
       carToEdit: {...this.state.carToEdit, [e.target.name]: e.target.value}
     })
   }
+  
 
     render() {
         return (
