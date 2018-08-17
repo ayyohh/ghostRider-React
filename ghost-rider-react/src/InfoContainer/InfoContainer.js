@@ -4,7 +4,7 @@ class InfoContainer extends Component {
     render() {
         return (
             <div>
-              INFO ON SPECIFIC CAR
+              HERE IS INFO ON A SPECIFIC CAR
             </div>
         )
     }
