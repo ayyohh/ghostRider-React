@@ -234,12 +234,17 @@ class CarsContainer extends Component {
     })
   }
 
+
+
+//========================== What's being returned (displayed)================================================
+
+
     render() {
         return (
             <div>
               <CreateCar addCar={this.addCar} />
 
-              <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentEdit={this.state.showCommentEdit} editCommentId={this.state.editCommentId} commentToEdit={this.state.commentToEdit} showCommentModal={this.showCommentModal} closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} />
+              <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentModal={this.showCommentModal} />
 
               {this.state.showCommentEdit ? <EditComment closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} commentToEdit={this.state.commentToEdit} /> : null}
 

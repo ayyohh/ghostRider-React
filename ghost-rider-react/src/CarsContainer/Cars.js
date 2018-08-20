@@ -16,7 +16,7 @@ const Cars = (props) => {
                 <button onClick={props.deleteCar.bind(null, car.id)}>Delete</button>
                 <button onClick={props.showModal.bind(null, car.id)}>Edit</button>
 
-                <Comments carID={car.id} comments={props.comments} deleteComment={props.deleteComment} showCommentEdit={props.showCommentEdit} editCommentId={props.editCommentId} commentToEdit={props.commentToEdit} showCommentModal={props.showCommentModal} closeAndEditComment={props.closeAndEditComment} handleCommentFormChange={props.handleCommentFormChange} />
+                <Comments carID={car.id} comments={props.comments} deleteComment={props.deleteComment} showCommentModal={props.showCommentModal} />
 
                 <CreateComment carID={'http://127.0.0.1:8000/api/cars/' + car.id} addComment={props.addComment} />
             </li>
