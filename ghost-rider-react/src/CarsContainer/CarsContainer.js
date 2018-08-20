@@ -2,17 +2,24 @@ import React, { Component } from 'react';
 import Cars from './Cars';
 import CreateCar from './CRUDCars/AddCar';
 import EditCar from './CRUDCars/EditCar';
+import EditComment from './CRUDComments/EditComment';
 
 class CarsContainer extends Component {
   constructor() {
     super();
     this.state = {
       cars: [],
+      comments: [],
       showEdit: false,
       editCarId: null,
       carToEdit: {
         name: '',
-      }
+      },
+      showCommentEdit: false,
+      editCommentId: null,
+      commentToEdit: {
+        name: '',
+      },
     }
   }
 
@@ -22,9 +29,15 @@ class CarsContainer extends Component {
       this.setState({ cars: cars})
     }).catch((err) => {
       console.log(err);
+    });
+    this.getComment().then((comments) => {
+      this.setState({ comments: comments})
+    }).catch((err) => {
+      console.log(err);
     })
   }
 
+//======================== Cars API calls ==================================================
 
   getCars = async () => {
     const cars = await fetch('http://127.0.0.1:8000/api/cars/');
@@ -99,7 +112,11 @@ class CarsContainer extends Component {
       });
       const editResponseJson = await editResponse.json();
       const editedCarArray = this.state.cars.map((car) => {
-        if (car.id === this.state.editCarId) {car.make = editResponseJson.make;}
+        if (car.id === this.state.editCarId) {
+          car.make = editResponseJson.make;
+          car.model = editResponseJson.model;
+          car.year = editResponseJson.year;
+        }
           return car
       });
       this.setState({
@@ -117,13 +134,115 @@ class CarsContainer extends Component {
       carToEdit: {...this.state.carToEdit, [e.target.name]: e.target.value}
     })
   }
-  
+
+
+  //======================== Comments API calls ==================================================
+
+  getComment = async () => {
+    const comments = await fetch('http://127.0.0.1:8000/api/comments/');
+    const commentsJson = await comments.json();
+    console.log(commentsJson, 'comments JSON');
+    console.log(comments, 'this is comments');
+    return commentsJson
+  }
+
+
+  addComment = async (comment, e) => {
+    e.preventDefault();
+    try {
+      const createdComment = await fetch('http://127.0.0.1:8000/api/comments/', {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const createdCommentJson = await createdComment.json();
+      this.setState({ comments: [...this.state.comments, createdCommentJson] });
+    } catch (err) {
+        console.log(err)
+    }
+  }
+
+
+  deleteComment = async (id, e) => {
+    e.preventDefault();
+    console.log('deleteComment function is being called, this is the id: ', id);
+    try {
+      const deleteComment = await fetch('http://127.0.0.1:8000/api/comments/' + id, {
+        method: 'DELETE'
+      });
+      console.log(deleteComment, 'this is delete car');
+
+      if (deleteComment.status === 204) {
+                this.setState({ comments: this.state.comments.filter((comment, i) => comment.id !== id) });
+            } else {
+                console.log('you fucked');
+            }
+    } catch(err) {
+        console.log(err);
+    }
+  }
+
+  showCommentModal = (id, e) => {
+  // i comes before e, when called with bind
+    const commentToEdit = this.state.comments.find((comment) => comment.id === id)
+    console.log(commentToEdit, ' commentToEdit')
+    console.log(id);
+    this.setState({
+      showCommentEdit: true,
+      editCommentId: id,
+      commentToEdit: commentToEdit
+    });
+  }
+
+
+  closeAndEditComment = async (e) => {
+    console.log('close and edit');
+    e.preventDefault();
+    try {
+      const editResponse = await fetch('http://127.0.0.1:8000/api/comments/' + this.state.editCommentId, {
+        method: 'PUT',
+        body: JSON.stringify(this.state.commentToEdit),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const editResponseJson = await editResponse.json();
+      const editedCommentArray = this.state.comments.map((comment) => {
+        if (comment.id === this.state.editCommentId) {
+          comment.comment = editResponseJson.comment;
+        }
+          return comment
+      });
+      console.log(editResponseJson, 'this edit editResponseJson');
+      console.log(editedCommentArray, 'this editedCommentArray');
+      this.setState({
+        comment: editedCommentArray,
+        showCommentEdit: false
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+  handleCommentFormChange = (e) => {
+    this.setState({
+      commentToEdit: {...this.state.commentToEdit, [e.target.name]: e.target.value}
+    })
+  }
 
     render() {
         return (
             <div>
-              <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} />
               <CreateCar addCar={this.addCar} />
+
+              <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentEdit={this.state.showCommentEdit} editCommentId={this.state.editCommentId} commentToEdit={this.state.commentToEdit} showCommentModal={this.showCommentModal} closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} />
+
+              {this.state.showCommentEdit ? <EditComment closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} commentToEdit={this.state.commentToEdit} /> : null}
+
               {this.state.showEdit ? <EditCar closeAndEdit={this.closeAndEdit} handleFormChange={this.handleFormChange} carToEdit={this.state.carToEdit} /> : null}
             </div>
         )

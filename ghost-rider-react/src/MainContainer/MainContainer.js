@@ -9,7 +9,6 @@ class MainContainer extends Component {
           <Aux>
             <div>NAVBAR</div>
             <CarsContainer />
-            <InfoContainer />
           </Aux>
 
         )
