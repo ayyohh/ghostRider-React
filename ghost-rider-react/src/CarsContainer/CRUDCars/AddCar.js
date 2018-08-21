@@ -23,15 +23,15 @@ class CreateCar extends Component {
     render() {
         return (
 
-          <div className='addCarForm'>
-            <form onSubmit={this.props.addCar.bind(this, this.state)}>
-              <input type="text" name="make" onChange={this.updateCar} placeholder='make' /><br/>
-              <input type="text" name="model" onChange={this.updateCar} placeholder='model' /><br/>
-              <input type="text" name="year" onChange={this.updateCar} placeholder='year' /><br/>
-              <input type="text" name="img_url" onChange={this.updateCar} placeholder='img_url' /><br/>
-              <Button type='Submit' onClick={this.props.toggle}>Submit</Button>
-            </form>
-          </div>
+            <div className='addCarForm'>
+                <form onSubmit={this.props.addCar.bind(this, this.state)}>
+                    <input type="text" name="make" onChange={this.updateCar} placeholder='make' /><br />
+                    <input type="text" name="model" onChange={this.updateCar} placeholder='model' /><br />
+                    <input type="text" name="year" onChange={this.updateCar} placeholder='year' /><br />
+                    <input type="text" name="img_url" onChange={this.updateCar} placeholder='img_url' /><br />
+                    <Button type='Submit' onClick={this.props.toggle}>Submit</Button>
+                </form>
+            </div>
         )
     }
 }

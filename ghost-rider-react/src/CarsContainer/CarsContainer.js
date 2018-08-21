@@ -23,31 +23,31 @@ class CarsContainer extends Component {
         name: '',
       },
       modal: false,
-      }
-      this.toggle = this.toggle.bind(this);
     }
-    toggle() {
-      this.setState({
-        modal: !this.state.modal
-      });
-    }
+    this.toggle = this.toggle.bind(this);
+  }
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
 
 
   componentDidMount() {
     this.getCars().then((cars) => {
-      this.setState({ cars: cars})
+      this.setState({ cars: cars })
     }).catch((err) => {
       console.log(err);
     });
     this.getComment().then((comments) => {
-      this.setState({ comments: comments})
+      this.setState({ comments: comments })
     }).catch((err) => {
       console.log(err);
     })
   }
 
-//======================== Cars API calls ==================================================
+  //======================== Cars API calls ==================================================
 
   getCars = async () => {
     const cars = await fetch('http://127.0.0.1:8000/api/cars/');
@@ -71,7 +71,7 @@ class CarsContainer extends Component {
       const createdCarJson = await createdCar.json();
       this.setState({ cars: [...this.state.cars, createdCarJson] });
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
 
@@ -86,18 +86,18 @@ class CarsContainer extends Component {
       console.log(deleteCar, 'this is delete car');
 
       if (deleteCar.status === 204) {
-                this.setState({ cars: this.state.cars.filter((car, i) => car.id !== id) });
-            } else {
-                console.log('you fucked');
-            }
-    } catch(err) {
-        console.log(err);
+        this.setState({ cars: this.state.cars.filter((car, i) => car.id !== id) });
+      } else {
+        console.log('you fucked');
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
 
   showModal = (id, e) => {
-  // i comes before e, when called with bind
+    // i comes before e, when called with bind
     const carToEdit = this.state.cars.find((car) => car.id === id)
     console.log(carToEdit, ' carToEdit')
     console.log(id);
@@ -127,7 +127,7 @@ class CarsContainer extends Component {
           car.model = editResponseJson.model;
           car.year = editResponseJson.year;
         }
-          return car
+        return car
       });
       this.setState({
         car: editedCarArray,
@@ -141,7 +141,7 @@ class CarsContainer extends Component {
 
   handleFormChange = (e) => {
     this.setState({
-      carToEdit: {...this.state.carToEdit, [e.target.name]: e.target.value}
+      carToEdit: { ...this.state.carToEdit, [e.target.name]: e.target.value }
     })
   }
 
@@ -170,7 +170,7 @@ class CarsContainer extends Component {
       const createdCommentJson = await createdComment.json();
       this.setState({ comments: [...this.state.comments, createdCommentJson] });
     } catch (err) {
-        console.log(err)
+      console.log(err)
     }
   }
 
@@ -185,17 +185,17 @@ class CarsContainer extends Component {
       console.log(deleteComment, 'this is delete car');
 
       if (deleteComment.status === 204) {
-                this.setState({ comments: this.state.comments.filter((comment, i) => comment.id !== id) });
-            } else {
-                console.log('you fucked');
-            }
-    } catch(err) {
-        console.log(err);
+        this.setState({ comments: this.state.comments.filter((comment, i) => comment.id !== id) });
+      } else {
+        console.log('you fucked');
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
   showCommentModal = (id, e) => {
-  // i comes before e, when called with bind
+    // i comes before e, when called with bind
     const commentToEdit = this.state.comments.find((comment) => comment.id === id)
     console.log(commentToEdit, ' commentToEdit')
     console.log(id);
@@ -224,7 +224,7 @@ class CarsContainer extends Component {
         if (comment.id === this.state.editCommentId) {
           comment.comment = editResponseJson.comment;
         }
-          return comment
+        return comment
       });
       console.log(editResponseJson, 'this edit editResponseJson');
       console.log(editedCommentArray, 'this editedCommentArray');
@@ -240,41 +240,41 @@ class CarsContainer extends Component {
 
   handleCommentFormChange = (e) => {
     this.setState({
-      commentToEdit: {...this.state.commentToEdit, [e.target.name]: e.target.value}
+      commentToEdit: { ...this.state.commentToEdit, [e.target.name]: e.target.value }
     })
   }
 
 
 
-//========================== What's being returned (displayed)================================================
+  //========================== What's being returned (displayed)================================================
 
 
-    render() {
-        return (
-            <div>
-              <div className="addCarBTN">
-                <Button color="primary" onClick={this.toggle}>Add a Car!</Button>
-                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                <ModalHeader toggle={this.toggle}>Add Car!</ModalHeader>
-                  <ModalBody>
+  render() {
+    return (
+      <div>
+        <div className="addCarBTN">
+          <Button color="primary" onClick={this.toggle}>Add a Car!</Button>
+          <Modal isOpen={this.state.modal} toggle={this.toggle}>
+            <ModalHeader toggle={this.toggle}>Add Car!</ModalHeader>
+            <ModalBody>
 
-                    <CreateCar addCar={this.addCar} toggle={this.toggle} />
+              <CreateCar addCar={this.addCar} toggle={this.toggle} />
 
-                  </ModalBody>
-                <ModalFooter>
-                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-              </ModalFooter>
-            </Modal>
-          </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            </ModalFooter>
+          </Modal>
+        </div>
 
-              <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentModal={this.showCommentModal} />
+        <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentModal={this.showCommentModal} />
 
-              {this.state.showCommentEdit ? <EditComment closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} commentToEdit={this.state.commentToEdit} /> : null}
+        {this.state.showCommentEdit ? <EditComment closeAndEditComment={this.closeAndEditComment} handleCommentFormChange={this.handleCommentFormChange} commentToEdit={this.state.commentToEdit} /> : null}
 
-              {this.state.showEdit ? <EditCar closeAndEdit={this.closeAndEdit} handleFormChange={this.handleFormChange} carToEdit={this.state.carToEdit} /> : null}
-            </div>
-        )
-    }
+        {this.state.showEdit ? <EditCar closeAndEdit={this.closeAndEdit} handleFormChange={this.handleFormChange} carToEdit={this.state.carToEdit} /> : null}
+      </div>
+    )
+  }
 }
 
 export default CarsContainer;

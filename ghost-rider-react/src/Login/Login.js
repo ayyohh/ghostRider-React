@@ -3,17 +3,19 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, NavItem, NavLink, Form, FormGroup, Label, Input } from 'reactstrap';
 class Login extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
-      modal: false
+      modal: false,
     };
     this.toggle = this.toggle.bind(this);
   }
+
   toggle() {
     this.setState({
       modal: !this.state.modal
     });
   }
+
   render() {
     return (
       <div>
@@ -27,7 +29,7 @@ class Login extends React.Component {
             <Form onSubmit={this.props.handleSubmit} inline>
               <FormGroup>
                 <Label for="exampleEmail" hidden>Email</Label>
-                <Input type="email" name="username" id="exampleEmail" onChange={this.props.handleChange} placeholder="Email (username)" />
+                <Input type="text" name="username" id="exampleEmail" onChange={this.props.handleChange} placeholder="Email (username)" />
               </FormGroup>
               {' '}
               <FormGroup>
@@ -35,7 +37,7 @@ class Login extends React.Component {
                 <Input type="password" name="password" id="examplePassword" onChange={this.props.handleChange} placeholder="Password" />
               </FormGroup>
               {' '}
-              <Button onClick={this.toggle}>Login</Button>
+              <Button type="submit">Login</Button>
             </Form>
           </ModalBody>
         </Modal>
