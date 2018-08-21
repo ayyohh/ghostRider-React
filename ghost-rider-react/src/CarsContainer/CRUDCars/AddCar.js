@@ -13,6 +13,7 @@ class CreateCar extends Component {
             year: '',
             img_url: '',
             description: '',
+            images: '',
             selectedFile: '',
         }
     }
@@ -28,7 +29,28 @@ class CreateCar extends Component {
 
     uploadHandler = () => {
       console.log(this.state.selectedFile, 'this is selectedFile')
+
+      const addCar = async (car, e) => {
+        e.preventDefault();
+        try {
+          const createdCar = await fetch('http://127.0.0.1:8000/media/cars_image/', {
+            method: 'POST',
+            body: JSON.stringify(car),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const createdCarJson = await createdCar.json();
+          this.setState({ selectedFile: [...this.state.cars, createdCarJson] });
+        } catch (err) {
+            console.log(err)
+        }
+      }
+
       this.props.toggle();
+      console.log('')
+
+
     }
 
 

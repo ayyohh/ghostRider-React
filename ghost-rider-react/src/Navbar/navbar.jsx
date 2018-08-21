@@ -8,9 +8,9 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap';
-import Login from './Login';
+import Login from '../Login/Login';
 // import Logout from '../Logout';
-import Register from './Register';
+import Register from '../Login/Register';
 import classes from './Navbar.css';
 
 export default class NavbarComponent extends React.Component {
