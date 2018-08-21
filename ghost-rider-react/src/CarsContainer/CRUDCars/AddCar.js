@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Container, Row, Col, Button } from 'reactstrap';
+import classes from './addCar.css';
 
 
 class CreateCar extends Component {
@@ -20,13 +22,14 @@ class CreateCar extends Component {
 
     render() {
         return (
-          <div>
+
+          <div className='addCarForm'>
             <form onSubmit={this.props.addCar.bind(this, this.state)}>
-              <input type="text" name="make" onChange={this.updateCar} placeholder='make' />
-              <input type="text" name="model" onChange={this.updateCar} placeholder='model' />
-              <input type="text" name="year" onChange={this.updateCar} placeholder='year' />
-              <input type="text" name="img_url" onChange={this.updateCar} placeholder='img_url' />
-              <input type='Submit' />
+              <input type="text" name="make" onChange={this.updateCar} placeholder='make' /><br/>
+              <input type="text" name="model" onChange={this.updateCar} placeholder='model' /><br/>
+              <input type="text" name="year" onChange={this.updateCar} placeholder='year' /><br/>
+              <input type="text" name="img_url" onChange={this.updateCar} placeholder='img_url' /><br/>
+              <Button type='Submit' onClick={this.props.toggle}>Submit</Button>
             </form>
           </div>
         )

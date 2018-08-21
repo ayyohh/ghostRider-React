@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import Aux from '../hoc/Aux';
 import CarsContainer from '../CarsContainer/CarsContainer';
-import InfoContainer from '../InfoContainer/InfoContainer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavbarComponent from '../Login/navbar';
+import classes from './MainContainer.css';
+
 
 class MainContainer extends Component {
     render() {
         return (
-          <Aux>
-            <div>NAVBAR</div>
+          <div className='mainContainer'>
+            <NavbarComponent />
+            <img src={require('./Ghost-Rider-Final.png')} className="logo" />
             <CarsContainer />
-          </Aux>
+          </div>
 
         )
     }
