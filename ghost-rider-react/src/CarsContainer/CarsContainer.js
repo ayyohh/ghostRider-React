@@ -26,11 +26,13 @@ class CarsContainer extends Component {
       }
       this.toggle = this.toggle.bind(this);
     }
+
     toggle() {
       this.setState({
         modal: !this.state.modal
       });
     }
+
 
 
 
@@ -258,7 +260,7 @@ class CarsContainer extends Component {
                 <ModalHeader toggle={this.toggle}>Add Car!</ModalHeader>
                   <ModalBody>
 
-                    <CreateCar addCar={this.addCar} toggle={this.toggle} />
+                    <CreateCar addCar={this.addCar} toggle={this.toggle} fileChangedHandler={this.fileChangedHandler} uploadHandler={this.uploadHandler} />
 
                   </ModalBody>
                 <ModalFooter>

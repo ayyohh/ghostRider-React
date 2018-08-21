@@ -18,6 +18,7 @@ const Cars = (props) => {
             <div key={car.id} className='specificCar'>
                 <span>{car.make}</span><br />
                 <span>{car.model}</span><br />
+                <p>{car.description}</p>
                 <Button color='danger' onClick={props.deleteCar.bind(null, car.id)}>Delete</Button>
                 <Button color='danger' onClick={props.showModal.bind(null, car.id)}>Edit</Button>
 
