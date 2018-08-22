@@ -19,7 +19,7 @@ class App extends Component {
     const parsedToken = await token.json()
     console.log(parsedToken, 'parsed token #####');
     return parsedToken.token
-
+    
   }
 
 

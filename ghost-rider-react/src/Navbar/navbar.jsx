@@ -11,7 +11,7 @@ import {
 import Login from '../Login/Login';
 // import Logout from '../Logout';
 import Register from '../Login/Register';
-import classes from './Navbar.css';
+// import classes from './Navbar.css';
 
 export default class NavbarComponent extends React.Component {
     constructor(props) {
@@ -34,10 +34,7 @@ export default class NavbarComponent extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <Login
-                            username={this.props.username}
-                            handleSubmit={this.props.handleSubmit}
-                            handleChange={this.props.handleChange}
+                            <Login username={this.props.username} password={this.props.password} handleChange={this.props.handleChange} handleSubmit={this.props.handleSubmit}
                             />
                             <Register />
                         </Nav>
