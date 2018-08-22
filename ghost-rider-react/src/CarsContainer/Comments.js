@@ -1,7 +1,6 @@
 import React from 'react';
-import CreateComment from './CRUDComments/AddComment';
-import EditComment from './CRUDComments/EditComment';
-
+import { Container, Row, Col, Button } from 'reactstrap';
+import classes from './Comments.css';
 
 const Comments = (props) => {
 
@@ -11,21 +10,27 @@ const Comments = (props) => {
         console.log(comment, ' comment id')
       if (apiCarID === comment.car) {
         return (
-            <li key={comment.id}>
+
+          <Col md='12'>
+            <div key={comment.id} className='specificComment'>
                 <span>{comment.comment}</span><br />
-                <span>{comment.car}</span><br />
-                <button onClick={props.deleteComment.bind(null, comment.id)}>Delete</button>
-                <button onClick={props.showCommentModal.bind(null, comment.id)}>Edit</button>
-            </li>
+                <Button onClick={props.deleteComment.bind(null, comment.id)}>Delete</Button>
+                <Button onClick={props.showCommentModal.bind(null, comment.id)}>Edit</Button>
+            </div>
+          </Col>
+
+
           )
         }
     })
 
 
     return (
-        <ul>
+      <Container>
+        <Row>
             {commentList}
-        </ul>
+        </Row>
+      </Container>
     )
 
 

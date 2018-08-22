@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 
 class CreateComment extends Component {
@@ -21,8 +22,8 @@ class CreateComment extends Component {
             <form onSubmit={this.props.addComment.bind(this, this.state)}>
               <input type="text" name="comment" onChange={this.updateComment} placeholder='add comment/review' />
               <input type="checkbox" name="car" value={this.props.carID} onChange={this.updateComment} />
-              <input type='Submit' value='Comment' />
-              <input type='reset' />
+              <Button color='danger' type='Submit'>Comment</Button>
+              <Button color='danger' type='reset'>Reset</Button>
             </form>
           </div>
 

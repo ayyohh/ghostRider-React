@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 
 const EditComment = (props) => {
@@ -12,7 +13,7 @@ const EditComment = (props) => {
                     <input type="text" name="comment" onChange={props.handleCommentFormChange} value={props.commentToEdit.comment} />
 
                 </label>
-                <input type='Submit' value="Edit Comment" />
+                <Button type='Submit'>Edit Comment</Button>
             </form>
         </div>
 

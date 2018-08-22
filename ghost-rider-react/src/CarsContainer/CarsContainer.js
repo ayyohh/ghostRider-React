@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Cars from './Cars';
 import CreateCar from './CRUDCars/AddCar';
 import EditCar from './CRUDCars/EditCar';
 import EditComment from './CRUDComments/EditComment';
+import classes from './CarsContainer.css';
 
 class CarsContainer extends Component {
   constructor() {
@@ -20,8 +22,18 @@ class CarsContainer extends Component {
       commentToEdit: {
         name: '',
       },
+      modal: false,
+      }
+      this.toggle = this.toggle.bind(this);
     }
-  }
+
+    toggle() {
+      this.setState({
+        modal: !this.state.modal
+      });
+    }
+
+
 
 
   componentDidMount() {
@@ -242,7 +254,20 @@ class CarsContainer extends Component {
     render() {
         return (
             <div>
-              <CreateCar addCar={this.addCar} />
+              <div className="addCarBTN">
+                <Button color="primary" onClick={this.toggle}>Add a Car!</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Add Car!</ModalHeader>
+                  <ModalBody>
+
+                    <CreateCar addCar={this.addCar} toggle={this.toggle} fileChangedHandler={this.fileChangedHandler} uploadHandler={this.uploadHandler} />
+
+                  </ModalBody>
+                <ModalFooter>
+                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+          </div>
 
               <Cars cars={this.state.cars} deleteCar={this.deleteCar} showModal={this.showModal} comments={this.state.comments} addComment={this.addComment} deleteComment={this.deleteComment} showCommentModal={this.showCommentModal} />
 
